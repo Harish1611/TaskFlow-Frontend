@@ -4,6 +4,7 @@ import Login from "../features/auth/pages/Login";
 import Register from "../features/auth/pages/Register";
 import Dashboard from "../features/dashboard/pages/Dashboard";
 import Projects from "../features/projects/pages/Projects";
+import ProjectDetails from "../features/projects/pages/ProjectDetails";
 
 import ProtectedRoute from "./ProtectedRoute";
 import PublicRoute from "./PublicRoute";
@@ -44,6 +45,17 @@ export default function AppRoutes() {
             </ProtectedRoute>
           }
         />
+
+        <Route
+  path="/projects/:id"
+  element={
+    <ProtectedRoute>
+      <MainLayout>
+        <ProjectDetails />
+      </MainLayout>
+    </ProtectedRoute>
+  }
+/>
 
         <Route
           path="/projects"
