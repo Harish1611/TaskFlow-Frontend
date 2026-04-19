@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import Login from "../features/auth/pages/Login";
 import Register from "../features/auth/pages/Register";
@@ -14,6 +14,9 @@ export default function AppRoutes() {
   return (
     <BrowserRouter>
       <Routes>
+
+        {/* Default Redirect */}
+        <Route path="/" element={<Navigate to="/dashboard" replace />} />
 
         {/* Public Routes */}
         <Route
@@ -47,17 +50,6 @@ export default function AppRoutes() {
         />
 
         <Route
-  path="/projects/:id"
-  element={
-    <ProtectedRoute>
-      <MainLayout>
-        <ProjectDetails />
-      </MainLayout>
-    </ProtectedRoute>
-  }
-/>
-
-        <Route
           path="/projects"
           element={
             <ProtectedRoute>
@@ -68,8 +60,19 @@ export default function AppRoutes() {
           }
         />
 
-        {/* Default */}
-        <Route path="*" element={<Login />} />
+        <Route
+          path="/projects/:id"
+          element={
+            <ProtectedRoute>
+              <MainLayout>
+                <ProjectDetails />
+              </MainLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Catch All */}
+        <Route path="*" element={<Navigate to="/dashboard" replace />} />
 
       </Routes>
     </BrowserRouter>

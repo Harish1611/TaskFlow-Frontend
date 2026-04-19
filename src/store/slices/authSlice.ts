@@ -9,10 +9,20 @@ export const login = createAsyncThunk(
   }
 );
 
+const initialState = {
+  user: null,
+  token: localStorage.getItem("token") || null,
+};
+
 const slice = createSlice({
   name: "auth",
-  initialState: { user: null, token: null },
-  reducers: {},
+  initialState,
+  reducers: {
+    logout: (state) => {
+      state.token = null;
+      localStorage.removeItem("token");
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(login.fulfilled, (state, action) => {
       state.token = action.payload.token;
@@ -21,4 +31,5 @@ const slice = createSlice({
   },
 });
 
+export const { logout } = slice.actions;
 export default slice.reducer;

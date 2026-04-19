@@ -1,14 +1,22 @@
 import { useState } from "react";
-import { loginAPI } from "../api";
+import { useDispatch } from "react-redux";
+import { login } from "../../../store/slices/authSlice";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+  const dispatch: any = useDispatch();
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = async () => {
-    const res = await loginAPI({ email, password });
-    localStorage.setItem("token", res.data.token);
-    alert("Logged in");
+    try {
+      await dispatch(login({ email, password })).unwrap();
+      navigate("/dashboard");
+    } catch (err) {
+      alert("Login failed");
+    }
   };
 
   return (
