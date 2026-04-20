@@ -9,7 +9,7 @@ import ProjectDetails from "../features/projects/pages/ProjectDetails";
 import ProtectedRoute from "./ProtectedRoute";
 import PublicRoute from "./PublicRoute";
 import MainLayout from "../layouts/MainLayout";
-
+import Teams from "../features/team/pages/Teams";
 export default function AppRoutes() {
   return (
     <BrowserRouter>
@@ -73,6 +73,17 @@ export default function AppRoutes() {
 
         {/* Catch All */}
         <Route path="*" element={<Navigate to="/dashboard" replace />} />
+
+        <Route
+  path="/teams"
+  element={
+    <ProtectedRoute>
+      <MainLayout>
+        <Teams />
+      </MainLayout>
+    </ProtectedRoute>
+  }
+/>
 
       </Routes>
     </BrowserRouter>
